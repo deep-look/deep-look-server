@@ -9,21 +9,24 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
 from pathlib import Path
+import os
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-c!=6-w)n++tp2=dxo)ds(ansu-)v+ehn!z@lw=rarpkmk4g)o@'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+env = environ.Env(
+    DEBUG=(bool, False)
+) #환경변수를 불러올 수 있는 상태로 세팅
+#환경변수 파일 읽어오기
+environ.Env.read_env(
+    env_file=os.path.join(BASE_DIR, '.env')
+)
+SECRET_KEY = env('SECRET_KEY') #SECEREY_KEY 값 불러오기
+DEBUG = env('DEBUG') #DEBUG 값 불러오기
 
 ALLOWED_HOSTS = []
 
@@ -79,12 +82,17 @@ WSGI_APPLICATION = 'deep_look.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': env('DATABASES_ENGINE'),
+        'NAME': env('DATABASES_NAME'),
+        'USER': env('DATABASES_USER'),
+        'PASSWORD': env('DATABASES_PASSWORD'),
+        'HOST': env('DATABASES_HOST'),
+        'PORT': env('DATABASES_PORT'),
+        'OPTIONS':{
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -109,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
