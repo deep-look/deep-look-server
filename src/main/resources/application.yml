@@ -3,14 +3,12 @@ server:
   servlet:
     context-path: /api
 
+#app:
+#  auth:
+#    token:
+#      secret-key: ${AUTH_TOKEN_SECRET_KEY}
+#      refresh-cookie-key: ${ AUTH_TOKEN_REFRESH_COOKIE_KEY}
 
-app:
-  auth:
-    token:
-      secret-key: ${AUTH_TOKEN_SECRET_KEY}
-      refresh-cookie-key: ${ AUTH_TOKEN_REFRESH_COOKIE_KEY}
-  oauth2:
-    authorizedRedirectUri: "https://likelionhongik.com/oauth2/redirect"
 
 spring:
   profiles:
@@ -18,7 +16,7 @@ spring:
       on-profile: dev
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_HOST}:{MYSQL_PORT}/{MYSQL_NAME}?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_NAME}?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
 
@@ -32,7 +30,7 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        ddl-auto: create #create update none
+        ddl-auto: update   #create update none
         default_batch_fetch_size: 500
 
   security:
@@ -45,7 +43,7 @@ spring:
             client-secret: ${KAKAO_CLIENT_SECRET}
             client-authentication-method: POST
             authorization-grant-type: authorization_code
-            scope: profile_nickname, account_email, profile_image #?? ??
+            scope: profile_nickname, profile_image
             client-name: Kakao
         provider:
           kakao:
@@ -53,17 +51,17 @@ spring:
             token-uri: https://kauth.kakao.com/oauth/token
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
-cloud:
-  aws:
-    credentials:
-      instance-profile: false
-      access-key: ${EC2_S3_ACCESS_KEY}
-      secret-key: ${EC2_S3_SECRET_KEY}
-    region:
-      auto: false
-      static: ap-northeast-2
-    stack:
-      auto: false
+#cloud:
+#  aws:
+#    credentials:
+#      instance-profile: false
+#      access-key: ${EC2_S3_ACCESS_KEY}
+#      secret-key: ${EC2_S3_SECRET_KEY}
+#    region:
+#      auto: false
+#      static: ap-northeast-2
+#    stack:
+#      auto: false
 
 logging:
   level:
