@@ -1,6 +1,7 @@
 package deeplook.server.domain.user.entity;
 
-import deeplook.server.global.entity.BaseTimeEntity;
+import deeplook.server.global.common.entity.BaseTimeEntity;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,12 +9,13 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
 
     @Column(nullable = false)
@@ -21,19 +23,21 @@ public class User extends BaseTimeEntity {
 
     @Column
     private String profileUrl;
-
     @Column
-    private String uid;
+    private Provider provider;
+    @Column
+    private String oid;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
-
     @Builder
-    public User(String name, String uid ,String profileUrl, Role role) {
+    public User(String name, String oid, String profileUrl,String provider, Role role) {
         this.name = name;
-        this.uid = uid;
+        this.oid = oid;
         this.profileUrl = profileUrl;
+        this.provider = Provider.valueOf(provider);
         this.role = role;
+        this.getCreatedDate();
     }
 
     public String getRoleKey() {

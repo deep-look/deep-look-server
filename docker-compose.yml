@@ -5,7 +5,7 @@ services:
     image: tmfrk0426/deep-look-server:latest
     env_file:
       - "./.env"
-    hostname : deep-look-server
+    hostname: deep-look-server
     expose:
       - "8080"
     restart: always

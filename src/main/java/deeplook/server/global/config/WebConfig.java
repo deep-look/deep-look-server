@@ -1,6 +1,6 @@
 package deeplook.server.global.config;
 
-import deeplook.server.global.config.auth.LoginUserArgumentResolver;
+import deeplook.server.global.common.auth.LoginUserArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
