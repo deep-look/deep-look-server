@@ -28,6 +28,19 @@ public class SecurityConfig{
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final LoginSuccessHandler loginSuccessHandler;
 
+    private static final String[] SwaggerUrlPatterns = {
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            /* swagger 3 */
+            "/v3/api-docs/**",
+            "/swagger-ui/**"
+    };
+
     @Bean
     public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
@@ -45,10 +58,12 @@ public class SecurityConfig{
                 .formLogin().disable()
                 .httpBasic().disable()
                 .authorizeRequests()
+                .antMatchers(SwaggerUrlPatterns).permitAll()
                 .antMatchers("/login/**").permitAll()
-//                .antMatchers("/api/v1/**").hasRole(Role.USER.name())
-//                .anyRequest().authenticated()
-                .anyRequest().permitAll(); //테스트
+                .antMatchers("/oauth2/**").permitAll()
+                .antMatchers("/token/**").permitAll()
+//                .antMatchers("/v1/**").hasRole(Role.USER.name())
+                .anyRequest().authenticated();
         /* jwt 인증 실패시 */
         http
                 .exceptionHandling().authenticationEntryPoint(customEntryPoint).accessDeniedHandler(customAccessDeniedHandler);

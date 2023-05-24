@@ -20,11 +20,14 @@ public class RefreshToken{
     @Column(name = "refresh_token_id")
     private Long id;
 
-    private String userId;
+    private Long userId;
     private String refreshToken;
     @Builder
-    public RefreshToken(String userId, String refreshToken) {
+    public RefreshToken(Long userId, String refreshToken) {
         this.userId = userId;
+        this.refreshToken = refreshToken;
+    }
+    public void update(String refreshToken){
         this.refreshToken = refreshToken;
     }
 }

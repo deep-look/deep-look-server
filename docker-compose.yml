@@ -2,10 +2,12 @@ version: "3"
 services:
   deep-look-server:
     container_name: deep-look-server
-    image: tmfrk0426/deep-look-server:latest
+    image: tmfrk0426/deep-look
     env_file:
       - "./.env"
-    hostname: deep-look
+    environment:
+      - TZ=Asia/Seoul
+    hostname: deep-look-server
     expose:
       - "8080"
     restart: always
@@ -19,3 +21,5 @@ services:
       context: ./nginx
     ports:
       - "80:80"
+    environment:
+      - TZ=Asia/Seoul

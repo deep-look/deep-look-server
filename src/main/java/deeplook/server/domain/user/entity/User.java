@@ -23,7 +23,8 @@ public class User extends BaseTimeEntity {
 
     @Column
     private String profileUrl;
-    @Column
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Provider provider;
     @Column
     private String oid;

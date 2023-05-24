@@ -25,7 +25,8 @@ public class JwtTokenProvider {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    private final Long ACCESS_TOKEN_EXPIRE_TIME = 30 * 60 * 1000L; // 30분
+   // private final Long ACCESS_TOKEN_EXPIRE_TIME = 30 * 60 * 1000L; // 30분
+    private final Long ACCESS_TOKEN_EXPIRE_TIME = 30 * 60 * 24 * 14 * 1000L; // 여기 플젝에선 2주로
     private final Long REFRESH_TOKEN_EXPIRE_TIME = 60 * 60 * 24 * 14 * 1000L; // 2주일
 
     public Key getSecretKey() {
@@ -33,14 +34,14 @@ public class JwtTokenProvider {
     }
 
 
-    public String generateRefreshToken(Long id, String role){
+    public String generateRefreshToken(Long uid, String role){
         Date now = new Date();
 
         return Jwts.builder()
                 .setHeaderParam("typ", "REFRESH_TOKEN")
                 .setHeaderParam("alg", "HS256")
                 .setIssuer("DeepLook")
-                .setSubject(id.toString())
+                .setSubject(uid.toString())
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + REFRESH_TOKEN_EXPIRE_TIME))
                 .claim("role", role)
@@ -48,13 +49,13 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String generateAccessToken(Long id,String role){
+    public String generateAccessToken(Long uid,String role){
         Date now = new Date();
 
         return Jwts.builder()
                 .setHeaderParam("typ", "ACCESS_TOKEN")
                 .setHeaderParam("alg", "HS256")
-                .setSubject(id.toString())
+                .setSubject(uid.toString())
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + ACCESS_TOKEN_EXPIRE_TIME))
                 .claim("role", role)

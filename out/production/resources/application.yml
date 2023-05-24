@@ -1,13 +1,7 @@
 server:
   port: ${PORT:8080}
-  context-path: /api
-
-#app:
-#  auth:
-#    token:
-#      secret-key: ${AUTH_TOKEN_SECRET_KEY}
-#      refresh-cookie-key: ${ AUTH_TOKEN_REFRESH_COOKIE_KEY}
-
+  servlet:
+    context-path: /api
 
 spring:
   profiles:
@@ -18,6 +12,10 @@ spring:
     url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_NAME}
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
   data:
     web:
@@ -31,7 +29,7 @@ spring:
     open-in-view: false
     dialect: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: create   #create update none
+      ddl-auto: update   #create update none
       default_batch_fetch_size: 500
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
@@ -54,23 +52,10 @@ spring:
             token-uri: https://kauth.kakao.com/oauth/token
             user-info-uri: https://kapi.kakao.com/v2/user/me
             user-name-attribute: id
-#cloud:
-#  aws:
-#    credentials:
-#      instance-profile: false
-#      access-key: ${EC2_S3_ACCESS_KEY}
-#      secret-key: ${EC2_S3_SECRET_KEY}
-#    region:
-#      auto: false
-#      static: ap-northeast-2
-#    stack:
-#      auto: false
 jwt:
   secret: ${JWT_SECRET}
-
 
 logging:
   level:
     org.springframework.orm.jpa: DEBUG
     org.springframework.transaction: DEBUG
-

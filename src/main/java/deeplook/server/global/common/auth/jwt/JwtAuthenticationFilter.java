@@ -42,7 +42,5 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
            chain.doFilter를 통해서 다음 필터로 넘어간다면 CustomEntryPoint로.
          */
         chain.doFilter(httpRequest, httpResponse);
-
-
     }
 }
