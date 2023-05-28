@@ -42,12 +42,13 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     }
     private String setRedirectUrl(String url) {
         String redirect_url = null;
-        if (url.equals("localhost")) {
-            redirect_url = "http://localhost:3000/oauth/callback/kakao";
-        }
-        if (url.equals("deeplookingproject.com")) {
-            redirect_url = "https://deeplookingproject.com/oauth/callback/kakao";
-        }
+//        if (url.equals("localhost")) {
+//            redirect_url = "http://localhost:3000/oauth/callback/kakao";
+//        }
+//        if (url.equals("deeplookingproject.com")) {
+//            redirect_url = "https://deeplookingproject.com/oauth/callback/kakao";
+//        }
+        redirect_url = "http://localhost:3000/oauth/callback/kakao";
         return redirect_url;
     }
 

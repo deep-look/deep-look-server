@@ -28,17 +28,6 @@ public class Comment extends BaseTimeEntity{
     private String body;
     private Boolean isDeleted; //default 는 false로 설정하기
 
-    public Comment(String body) {
-        this.body = body;
-        this.isDeleted = false;
-    }
-
-    public Comment(User author, String body) {
-        this.author = author;
-        this.body = body;
-        this.isDeleted = false;
-    }
-
     public void update(String body){
         this.body = body;
     }

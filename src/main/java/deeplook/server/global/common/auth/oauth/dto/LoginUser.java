@@ -31,7 +31,7 @@ public class LoginUser implements Serializable, UserDetails {
         this.name = user.getName();
         this.oid = user.getOid();
         this.provider =user.getProvider();
-        this.profileUrl = user.getProfileUrl();
+        this.profileUrl = user.getProfileImage();
         this.role = user.getRole();
     }
 

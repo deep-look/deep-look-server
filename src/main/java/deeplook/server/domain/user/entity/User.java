@@ -22,7 +22,7 @@ public class User extends BaseTimeEntity {
     private String name;
 
     @Column
-    private String profileUrl;
+    private String profileImage;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Provider provider;
@@ -32,10 +32,10 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private Role role;
     @Builder
-    public User(String name, String oid, String profileUrl,String provider, Role role) {
+    public User(String name, String oid, String profileImage, String provider, Role role) {
         this.name = name;
         this.oid = oid;
-        this.profileUrl = profileUrl;
+        this.profileImage = profileImage;
         this.provider = Provider.valueOf(provider);
         this.role = role;
         this.getCreatedDate();

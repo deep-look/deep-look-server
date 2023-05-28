@@ -2,7 +2,7 @@ version: "3"
 services:
   deep-look-server:
     container_name: deep-look-server
-    image: tmfrk0426/deep-look
+    image: tmfrk0426/deep-look-server
     env_file:
       - "./.env"
     environment:
@@ -11,6 +11,22 @@ services:
     expose:
       - "8080"
     restart: always
+
+#  flask-server:
+#    container_name: flask-server
+#    image: tmfrk0426/flask-server
+##    env_file:
+##      - "./.env"
+#    environment:
+#      - TZ=Asia/Seoul
+#    hostname: flask-server
+#    expose:
+#      - "6000"
+#    restart: always
+#    build:
+#      dockerfile: Dockerfile
+#      context: ./flask-server
+
 
   nginx:
     depends_on:

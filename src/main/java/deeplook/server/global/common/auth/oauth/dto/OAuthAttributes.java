@@ -1,6 +1,5 @@
 package deeplook.server.global.common.auth.oauth.dto;
 
-import deeplook.server.domain.user.entity.Provider;
 import deeplook.server.domain.user.entity.Role;
 import deeplook.server.domain.user.entity.User;
 import lombok.Builder;
@@ -15,15 +14,15 @@ public class OAuthAttributes {
     private String nameAttributeKey;
     private String name;
     private String oid;
-    private String profileUrl;
+    private String profileImage;
 
     @Builder
-    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String oid, String profileUrl) {
+    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String oid, String profileImage) {
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
         this.name = name;
         this.oid = oid;
-        this.profileUrl = profileUrl;
+        this.profileImage = profileImage;
     }
 
 
@@ -42,7 +41,7 @@ public class OAuthAttributes {
         return OAuthAttributes.builder()
                 .name((String) kakaoProfile.get("nickname"))
                 .oid(attributes.get("id").toString())
-                .profileUrl((String) kakaoProfile.get("profile_image_url"))
+                .profileImage((String) kakaoProfile.get("profile_image_url"))
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
@@ -53,7 +52,7 @@ public class OAuthAttributes {
                 .name(name)
                 .oid(oid)
                 .role(Role.USER)
-                .profileUrl(profileUrl)
+                .profileImage(profileImage)
                 .provider(registrationId)
                 .build();
     }
