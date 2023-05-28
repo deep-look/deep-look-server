@@ -23,6 +23,7 @@ services:
     restart: always
 
 
+
   nginx:
     depends_on:
       - deep-look-server

@@ -1,5 +1,6 @@
 package deeplook.server.global.config;
 
+import deeplook.server.global.common.auth.oauth.dto.LoginUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -28,9 +29,11 @@ public class SwaggerConfig {
     }
     @Bean
     public Docket api() {
-        return new Docket(DocumentationType.OAS_30)
+        return new Docket(DocumentationType.SWAGGER_2)
                 .securityContexts(Arrays.asList(securityContext()))
                 .securitySchemes(Arrays.asList(apiKey()))
+                .ignoredParameterTypes(LoginUser.class)
+                .useDefaultResponseMessages(false)
                 .consumes(getConsumeContentTypes())
                 .produces(getProduceContentTypes())
                 .apiInfo(getApiInfo())
@@ -54,7 +57,7 @@ public class SwaggerConfig {
     }
 
     private ApiKey apiKey() {
-        return new ApiKey("JWT", "Authorization", "header");
+        return new ApiKey("JWT", "jwt", "header");
     }
     private Set<String> getConsumeContentTypes() {
         Set<String> consumes = new HashSet<>();

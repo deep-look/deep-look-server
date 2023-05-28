@@ -32,8 +32,7 @@ public class PredictController {
     }
     @GetMapping("")
     @Operation(summary = "측정 기록 전체 조회 API", description = "본인의 측정 기록을 조회합니다.")
-    public DataResponse<List<PredictResultDto>> getPredictResult(@Login LoginUser user,
-                                                                 @ModelAttribute ImageRequestDto image){
+    public DataResponse<List<PredictResultDto>> getPredictResult(@Login LoginUser user){
         log.info("측정 기록 전체 조회 API 호출 USER = {}",user.getId());
         return new DataResponse<List<PredictResultDto>>(predictService.getPredictResult(user));
     }

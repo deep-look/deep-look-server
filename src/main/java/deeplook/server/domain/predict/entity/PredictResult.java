@@ -18,7 +18,7 @@ public class PredictResult extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_id")
+    @Column(name = "predict_result_id")
     private Long id;
 
     @ManyToOne(fetch = LAZY)
