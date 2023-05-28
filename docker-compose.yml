@@ -12,20 +12,15 @@ services:
       - "8080"
     restart: always
 
-#  flask-server:
-#    container_name: flask-server
-#    image: tmfrk0426/flask-server
-##    env_file:
-##      - "./.env"
-#    environment:
-#      - TZ=Asia/Seoul
-#    hostname: flask-server
-#    expose:
-#      - "6000"
-#    restart: always
-#    build:
-#      dockerfile: Dockerfile
-#      context: ./flask-server
+  deep-look-ai:
+    container_name: deep-look-ai
+    image: tmfrk0426/deep-look-ai
+    hostname: deep-look-ai
+    environment:
+      - TZ=Asia/Seoul
+    expose:
+      - "6000"
+    restart: always
 
 
   nginx:
