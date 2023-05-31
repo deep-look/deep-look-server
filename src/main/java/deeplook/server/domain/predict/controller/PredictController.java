@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class PredictController {
     @PostMapping("")
     @Operation(summary = "유사도 측정 진행 API", description = "클라이언트에게 받은 이미지로 유사도 측정을 진행합니다. 측정결과를 반환합니다.")
     public DataResponse<PredictResultDto> predictExcute(@Login LoginUser user,
-                                                       @ModelAttribute ImageRequestDto image){
+                                                        @Validated @ModelAttribute ImageRequestDto image){
         log.info("유사도 측정 진행 API 호출 USER = {}",user.getId());
         return new DataResponse<PredictResultDto>(predictService.predictExcute(user,image));
     }

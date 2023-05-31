@@ -4,6 +4,7 @@ import deeplook.server.domain.predict.dto.request.ImageRequestDto;
 import deeplook.server.domain.predict.dto.response.PredictResultDto;
 import deeplook.server.domain.predict.entity.PredictResult;
 import deeplook.server.domain.predict.exception.PredictNotFoundException;
+import deeplook.server.domain.predict.exception.PredictServerBadRequestException;
 import deeplook.server.domain.predict.repository.PredictResultRepository;
 import deeplook.server.domain.user.entity.User;
 import deeplook.server.domain.user.repository.UserRepository;
@@ -29,7 +30,7 @@ public class PredictService {
     @Transactional
     public PredictResultDto predictExcute(LoginUser loginUser, ImageRequestDto image){
         FeignPredictDto feignResult = predictFeignClient.predictImage(image);
-
+        if (feignResult.getCelebrity_initial().equals(null)) throw new PredictServerBadRequestException();
         User user = userRepository.findById(loginUser.getId()).get();
 
         PredictResult predictResult = PredictResult.builder()

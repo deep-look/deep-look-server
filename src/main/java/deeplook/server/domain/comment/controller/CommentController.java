@@ -13,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class CommentController {
     @PostMapping("")
     @Operation(summary = "댓글 생성 API", description = "댓글을 생성합니다.")
     public BaseResponse createComment(@Login LoginUser user,
-                                                        @RequestBody CommentRequestDto commentRequestDto){
+                                                        @Validated @RequestBody CommentRequestDto commentRequestDto){
         log.info("댓글 생성 API 호출 USER = {}", user.getId());
         commentService.createComment(user, commentRequestDto);
         return BaseResponse.success();
